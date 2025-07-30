@@ -1,0 +1,339 @@
+[gd_scene load_steps=15 format=3 uid="uid://b7dk6ljaar2si"]
+
+[ext_resource type="Script" uid="uid://byjvbl0kq55f1" path="res://scripts/Main.gd" id="1_o5qli"]
+[ext_resource type="Script" uid="uid://d3g6p710u1tcm" path="res://scripts/SentencePanel.gd" id="2_0wfyh"]
+[ext_resource type="Script" uid="uid://brifx0hnx6fd" path="res://scripts/SenderPanel.gd" id="3_o6xl0"]
+[ext_resource type="Shader" uid="uid://bg35p8eequmqa" path="res://shaders/BowBackground.gdshader" id="4_jyhfs"]
+[ext_resource type="Script" uid="uid://bvkq0ehitrqvh" path="res://scripts/WordPanel.gd" id="4_o6xl0"]
+[ext_resource type="Script" uid="uid://dwb0eodgv4nx2" path="res://scripts/InputPanel.gd" id="4_tefeu"]
+[ext_resource type="Texture2D" uid="uid://bs1ga01m727s2" path="res://assets/bow.png" id="5_tbgi4"]
+[ext_resource type="Theme" uid="uid://chmk4cty8x2fw" path="res://assets/themes/theme_stats.tres" id="6_85g3d"]
+[ext_resource type="Script" uid="uid://ch2ykb1bmskbl" path="res://scripts/WinsPanel.gd" id="7_85g3d"]
+[ext_resource type="Theme" uid="uid://c5q0euwoshdyv" path="res://assets/themes/theme_chat.tres" id="8_choun"]
+[ext_resource type="Script" uid="uid://d3yr0a5ww27a3" path="res://scripts/LogContainer.gd" id="8_eb6dy"]
+[ext_resource type="Texture2D" uid="uid://46mmpugyimtk" path="res://assets/stickers/sticker_0.webp" id="9_ya4ey"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tipki"]
+bg_color = Color(0.964706, 0.768627, 0.85098, 1)
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jyhfs"]
+shader = ExtResource("4_jyhfs")
+shader_parameter/bow_tex = ExtResource("5_tbgi4")
+shader_parameter/bow_size = Vector2(150, 150)
+shader_parameter/spacing = Vector2(300, 65)
+shader_parameter/direction = Vector2(-1, 0.5)
+shader_parameter/speed = 95.0
+
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_o5qli")
+
+[node name="GameLayer" type="CanvasLayer" parent="."]
+
+[node name="GameUI" type="HBoxContainer" parent="GameLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LeftPanel" type="VBoxContainer" parent="GameLayer/GameUI"]
+custom_minimum_size = Vector2(520, 1080)
+layout_mode = 2
+
+[node name="SentencePanelContainer" type="MarginContainer" parent="GameLayer/GameUI/LeftPanel"]
+custom_minimum_size = Vector2(420, 800)
+layout_mode = 2
+theme_override_constants/margin_left = 70
+theme_override_constants/margin_top = 70
+theme_override_constants/margin_right = 35
+theme_override_constants/margin_bottom = 35
+
+[node name="SentencePanel" type="Panel" parent="GameLayer/GameUI/LeftPanel/SentencePanelContainer"]
+custom_minimum_size = Vector2(420, 800)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("2_0wfyh")
+
+[node name="Sentence" type="VBoxContainer" parent="GameLayer/GameUI/LeftPanel/SentencePanelContainer/SentencePanel"]
+custom_minimum_size = Vector2(370, 750)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -185.0
+offset_top = -375.0
+offset_right = 185.0
+offset_bottom = 375.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="SenderPanelContainer" type="MarginContainer" parent="GameLayer/GameUI/LeftPanel"]
+custom_minimum_size = Vector2(420, 70)
+layout_mode = 2
+theme_override_constants/margin_left = 70
+theme_override_constants/margin_top = 35
+theme_override_constants/margin_right = 35
+theme_override_constants/margin_bottom = 70
+
+[node name="SenderPanel" type="Panel" parent="GameLayer/GameUI/LeftPanel/SenderPanelContainer"]
+custom_minimum_size = Vector2(420, 70)
+layout_mode = 2
+script = ExtResource("3_o6xl0")
+
+[node name="Label" type="Label" parent="GameLayer/GameUI/LeftPanel/SenderPanelContainer/SenderPanel"]
+custom_minimum_size = Vector2(400, 70)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -11.5
+offset_right = 200.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GuessPanel" type="VBoxContainer" parent="GameLayer/GameUI"]
+custom_minimum_size = Vector2(870, 1080)
+layout_mode = 2
+
+[node name="WordPanelContainer" type="MarginContainer" parent="GameLayer/GameUI/GuessPanel"]
+custom_minimum_size = Vector2(800, 800)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/margin_top = 70
+theme_override_constants/margin_bottom = 35
+
+[node name="WordPanel" type="Panel" parent="GameLayer/GameUI/GuessPanel/WordPanelContainer"]
+custom_minimum_size = Vector2(800, 800)
+layout_mode = 2
+script = ExtResource("4_o6xl0")
+
+[node name="GridContainer" type="GridContainer" parent="GameLayer/GameUI/GuessPanel/WordPanelContainer/WordPanel"]
+custom_minimum_size = Vector2(800, 800)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="InputPanelContainer" type="MarginContainer" parent="GameLayer/GameUI/GuessPanel"]
+custom_minimum_size = Vector2(800, 120)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/margin_top = 35
+theme_override_constants/margin_bottom = 70
+
+[node name="InputPanel" type="Panel" parent="GameLayer/GameUI/GuessPanel/InputPanelContainer"]
+custom_minimum_size = Vector2(800, 70)
+layout_mode = 2
+script = ExtResource("4_tefeu")
+
+[node name="LineEdit" type="LineEdit" parent="GameLayer/GameUI/GuessPanel/InputPanelContainer/InputPanel"]
+custom_minimum_size = Vector2(750, 70)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -375.0
+offset_top = -35.0
+offset_right = 375.0
+offset_bottom = 35.0
+grow_horizontal = 2
+grow_vertical = 2
+placeholder_text = "Say something ..."
+alignment = 1
+keep_editing_on_text_submit = true
+emoji_menu_enabled = false
+virtual_keyboard_enabled = false
+middle_mouse_paste_enabled = false
+drag_and_drop_selection_enabled = false
+text_direction = 3
+language = "en"
+
+[node name="RightPanelContainer" type="MarginContainer" parent="GameLayer/GameUI"]
+custom_minimum_size = Vector2(420, 940)
+layout_mode = 2
+theme_override_constants/margin_left = 35
+theme_override_constants/margin_top = 70
+theme_override_constants/margin_right = 70
+theme_override_constants/margin_bottom = 70
+
+[node name="RightPanel" type="Panel" parent="GameLayer/GameUI/RightPanelContainer"]
+custom_minimum_size = Vector2(420, 940)
+layout_mode = 2
+
+[node name="StatsContainer" type="VBoxContainer" parent="GameLayer/GameUI/RightPanelContainer/RightPanel"]
+custom_minimum_size = Vector2(420, 130)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -210.0
+offset_right = 210.0
+offset_bottom = 130.0
+grow_horizontal = 2
+theme = ExtResource("6_85g3d")
+
+[node name="WinsPanelContainer" type="MarginContainer" parent="GameLayer/GameUI/RightPanelContainer/RightPanel/StatsContainer"]
+custom_minimum_size = Vector2(380, 100)
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 10
+
+[node name="WinsPanel" type="Panel" parent="GameLayer/GameUI/RightPanelContainer/RightPanel/StatsContainer/WinsPanelContainer"]
+custom_minimum_size = Vector2(380, 100)
+layout_mode = 2
+script = ExtResource("7_85g3d")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GameLayer/GameUI/RightPanelContainer/RightPanel/StatsContainer/WinsPanelContainer/WinsPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -190.0
+offset_top = -50.0
+offset_right = 190.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="LabelPanel" type="Panel" parent="GameLayer/GameUI/RightPanelContainer/RightPanel/StatsContainer/WinsPanelContainer/WinsPanel/HBoxContainer"]
+custom_minimum_size = Vector2(190, 100)
+layout_mode = 2
+
+[node name="Wins" type="Label" parent="GameLayer/GameUI/RightPanelContainer/RightPanel/StatsContainer/WinsPanelContainer/WinsPanel/HBoxContainer/LabelPanel"]
+custom_minimum_size = Vector2(160, 70)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -80.0
+offset_top = -35.0
+offset_right = 80.0
+offset_bottom = 35.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "勝利数"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="NumberPanel" type="Panel" parent="GameLayer/GameUI/RightPanelContainer/RightPanel/StatsContainer/WinsPanelContainer/WinsPanel/HBoxContainer"]
+custom_minimum_size = Vector2(190, 100)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_tipki")
+
+[node name="Number" type="Label" parent="GameLayer/GameUI/RightPanelContainer/RightPanel/StatsContainer/WinsPanelContainer/WinsPanel/HBoxContainer/NumberPanel"]
+custom_minimum_size = Vector2(160, 70)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -80.0
+offset_top = -35.0
+offset_right = 80.0
+offset_bottom = 35.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LogContainer" type="VBoxContainer" parent="GameLayer/GameUI/RightPanelContainer/RightPanel"]
+custom_minimum_size = Vector2(420, 810)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -210.0
+offset_top = -810.0
+offset_right = 210.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("8_eb6dy")
+
+[node name="ChatPanelContainer" type="MarginContainer" parent="GameLayer/GameUI/RightPanelContainer/RightPanel/LogContainer"]
+custom_minimum_size = Vector2(380, 380)
+layout_mode = 2
+theme = ExtResource("8_choun")
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 10
+
+[node name="ChatPanel" type="Panel" parent="GameLayer/GameUI/RightPanelContainer/RightPanel/LogContainer/ChatPanelContainer"]
+custom_minimum_size = Vector2(380, 380)
+layout_mode = 2
+
+[node name="Chat" type="Label" parent="GameLayer/GameUI/RightPanelContainer/RightPanel/LogContainer/ChatPanelContainer/ChatPanel"]
+custom_minimum_size = Vector2(350, 350)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -175.0
+offset_top = -175.0
+offset_right = 175.0
+offset_bottom = 175.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Stupid as Always"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="StickerPanelContainer" type="MarginContainer" parent="GameLayer/GameUI/RightPanelContainer/RightPanel/LogContainer"]
+custom_minimum_size = Vector2(380, 380)
+layout_mode = 2
+theme = ExtResource("6_85g3d")
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="StickerPanel" type="Panel" parent="GameLayer/GameUI/RightPanelContainer/RightPanel/LogContainer/StickerPanelContainer"]
+custom_minimum_size = Vector2(380, 380)
+layout_mode = 2
+
+[node name="Sticker" type="Sprite2D" parent="GameLayer/GameUI/RightPanelContainer/RightPanel/LogContainer/StickerPanelContainer/StickerPanel"]
+position = Vector2(197, 208)
+texture = ExtResource("9_ya4ey")
+
+[node name="BackgroundLayer" type="CanvasLayer" parent="."]
+layer = 0
+
+[node name="BG" type="ColorRect" parent="BackgroundLayer"]
+material = SubResource("ShaderMaterial_jyhfs")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.964706, 0.768627, 0.85098, 1)

@@ -1,0 +1,37 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="Giordle"
+run/main_scene="uid://b7dk6ljaar2si"
+config/features=PackedStringArray("4.4", "GL Compatibility")
+config/icon="uid://chr5oms0eksgo"
+config/macos_native_icon="res://icon.icns"
+config/windows_native_icon="res://icon.ico"
+
+[autoload]
+
+SentenceLoader="*res://scripts/SentenceLoader.gd"
+
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+
+[gui]
+
+theme/custom="uid://dpdrbb8id7jxv"
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+textures/vram_compression/import_etc2_astc=true
